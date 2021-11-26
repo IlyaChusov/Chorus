@@ -1,0 +1,84 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Application theme -->
+    <style name="Theme.Chorus" parent="BaseApplicationTheme">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/ametist_500</item>
+        <item name="colorAccent">?attr/colorPrimary</item>
+    </style>
+
+    <!-- SongActivity theme -->
+    <style name="SongActivityTheme" parent="BaseSongActivityTheme">
+        <item name="colorPrimary">@color/pink_200</item>
+        <item name="colorPrimaryDark">@color/pink_500</item>
+        <item name="colorControlActivated">@color/brown</item>
+    </style>
+
+
+
+    <!-- Splash screen theme -->
+    <style name="Theme.Chorus.Launcher" parent="Theme.Chorus">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+
+    <!-- Base Application theme -->
+    <style name="BaseApplicationTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Status bar color -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+
+        <item name="android:windowActivityTransitions">true</item>
+
+        <item name="android:windowSharedElementsUseOverlay">false</item>
+
+        <!-- Widget styles -->
+        <item name="actionBarStyle">@style/SongActionBar</item>
+        <item name="seekBarStyle">@style/SongSeekBar</item>
+        <item name="tabStyle">@style/SongTab</item>
+    </style>
+
+    <!-- Base SongActivity theme -->
+    <style name="BaseSongActivityTheme" parent="Theme.Chorus">
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:windowActivityTransitions">true</item>
+
+        <!-- CollapsingToolbar scrim colors -->
+        <item name="contentScrim">?attr/colorPrimaryDark</item>
+        <item name="statusBarScrim">?attr/colorPrimaryDark</item>
+
+        <!-- Status bar color (transparent for scrim) -->
+        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+    </style>
+
+    <style name="ImageActivityTheme" parent="Theme.Chorus">
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:statusBarColor">?attr/backgroundColor</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/image_transition</item>
+        <item name="android:windowSharedElementReturnTransition">@transition/image_transition</item>
+        <item name="android:windowSharedElementExitTransition">@transition/image_transition</item>
+
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+    <!-- General ActionBar theme-->
+    <style name="SongActionBar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="background">?attr/colorPrimary</item>
+        <item name="displayOptions">showTitle</item>
+    </style>
+
+    <!-- General SeekBars theme -->
+    <style name="SongSeekBar" parent="Widget.AppCompat.SeekBar">
+        <item name="android:progressTint">?attr/colorControlActivated</item>
+    </style>
+
+    <!-- General Tabs theme -->
+    <style name="SongTab" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="tabTextColor">@color/gray</item>
+        <item name="tabIndicatorColor">@color/pink_700</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+    </style>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/repeat"
+        android:icon="@drawable/ic_baseline_replay_24"
+        android:title="@string/repeat_title"
+        app:showAsAction="ifRoom|withText"/>
+    <item
+        android:id="@+id/default_tone"
+        android:icon="@drawable/ic_baseline_tone_24"
+        android:title="@string/default_tone"
+        app:showAsAction="ifRoom|withText"/>
+</menu>

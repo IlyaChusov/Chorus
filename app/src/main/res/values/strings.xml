@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Хорус</string>
+    <string name="title_tropary">Тропари</string>
+    <string name="title_tropary_caps">ТРОПАРИ</string>
+    <string name="title_stikhiry">Стихиры</string>
+    <string name="title_stikhiry_caps">СТИХИРЫ</string>
+    <string name="stikhira_glas_s">Стихира, глас %s</string>
+    <string name="glas_s">Глас %s</string>
+    <string name="tropar_glas_s">Тропарь, глас %s</string>
+    <string name="tone">Тон:</string>
+    <string name="default_tone">Тон по умолчанию</string>
+    <string name="default_tone_title">Выбор тона по умолчанию</string>
+    <string name="repeat_title">Автоповтор аудио</string>
+    <string name="bass">Бас</string>
+    <string name="bariton">Баритон</string>
+    <string name="tenor">Тенор</string>
+    <string name="soprano">Сопрано</string>
+    <string name="on">Включён</string>
+    <string name="off">Выключен</string>
+    <string-array name="tones_array">
+        <item>@string/bass</item>
+        <item>@string/bariton</item>
+        <item>@string/tenor</item>
+        <item>@string/soprano</item>
+    </string-array>
+    <string-array name="repeat_modes_array">
+        <item>@string/on</item>
+        <item>@string/off</item>
+    </string-array>
+    <string name="pause_path">M0,1 L0,23 6,23 6,1 M13,1 L13,23 19,23 19,1</string>
+    <string name="play_path">M5,0 L5,24 23,12 5,0 M16,0 L16,0 16,0 16,0</string>
+    <integer name="button_center_x">11</integer>
+    <integer name="button_center_y">12</integer>
+</resources>

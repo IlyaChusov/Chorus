@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ametist_500">#9966CC</color>
+    <color name="ametist_700">#5B1B9D</color>
+    <color name="green_700">#2C4B26</color>
+    <color name="yellow_200">#DAD871</color>
+    <color name="brown">#63554B</color>
+    <color name="black">#FF000000</color>
+    <color name="almost_black">#121212</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray">#C7C7C7</color>
+    <color name="dark_gray">#B5B2B2</color>
+    <color name="pink_200">#FBBB93</color>
+    <color name="pink_500">#FAA066</color>
+    <color name="pink_700">#EB5757</color>
+</resources>

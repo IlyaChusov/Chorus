@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Application theme -->
+    <style name="Theme.Chorus" parent="BaseApplicationTheme">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/ametist_700</item>
+        <item name="colorAccent">@color/pink_700</item>
+    </style>
+
+    <!-- SongActivity theme -->
+    <style name="SongActivityTheme" parent="BaseSongActivityTheme">
+        <item name="colorPrimary">@color/green_700</item>
+        <item name="colorPrimaryDark">?attr/colorPrimary</item>
+        <item name="colorControlActivated">?attr/colorAccent</item>
+    </style>
+</resources>
