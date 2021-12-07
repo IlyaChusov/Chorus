@@ -8,10 +8,13 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.transition.platform.MaterialContainerTransform;
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback;
+import com.johnny.chorus.model.Song;
+import com.johnny.chorus.model.SongType;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -23,8 +26,6 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final List<ListFragment> fragmentList = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_Chorus);
@@ -32,24 +33,23 @@ public class MainActivity extends AppCompatActivity {
         PreferenceWork.setContext(this);
         setExitSharedElementCallback(new MaterialContainerTransformSharedElementCallback());
 
-        fragmentList.add(ListFragment.create(0));
-        fragmentList.add(ListFragment.create(1));
-
         setContentView(R.layout.activity_main);
         Objects.requireNonNull(getSupportActionBar()).setElevation(0);
 
         ViewPager2 viewPager = findViewById(R.id.fragment_pager);
         viewPager.setAdapter(new FragmentStateAdapter(getSupportFragmentManager(), getLifecycle()) {
+            int i = 0;
+
             @NonNull
             @NotNull
             @Override
             public Fragment createFragment(int position) {
-                return fragmentList.get(position);
+                return ListFragment.create(SongType.values()[i++]);
             }
 
             @Override
             public int getItemCount() {
-                return fragmentList.size();
+                return SongType.values().length;
             }
         });
 

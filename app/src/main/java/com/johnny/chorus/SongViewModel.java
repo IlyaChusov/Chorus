@@ -21,9 +21,8 @@ public class SongViewModel extends AndroidViewModel {
     private AnimatedVectorDrawable pauseToPlayDrawable;
     private final List<AnimatedVectorDrawable> animPlayToPauseDrawablesList = new ArrayList<>();
     private boolean hasData = false;
-    private int songId;
     public LiveData<Song> songLiveData;
-    private SongRepository songRepository = SongRepository.get();
+    private final SongRepository songRepository = SongRepository.get();
 
     public boolean hasData() {
         return hasData;
@@ -37,8 +36,7 @@ public class SongViewModel extends AndroidViewModel {
         return getApplication().getApplicationContext();
     }
 
-    public void setSongId(int songId) {
-        this.songId = songId;
+    public void setSong(int songId) {
         if (songLiveData == null)
             songLiveData = songRepository.getSong(songId);
     }

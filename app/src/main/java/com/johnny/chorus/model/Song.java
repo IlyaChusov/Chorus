@@ -55,10 +55,8 @@ public class Song {
     }
 
     public void addToneSongsId(@NonNull int... ids) {
-        for (int id: ids) {
+        for (int id: ids)
             toneSongsArray.add(id + "");
-        }
-
     }
 
     private String generalSongId;
@@ -74,7 +72,6 @@ public class Song {
         return id;
     }
 
-
     public int getToneSongsId(@NonNull Context context, int arrayId) {
         return context.getResources().getIdentifier(toneSongsArray.get(arrayId), "raw", context.getPackageName());
     }
@@ -85,7 +82,7 @@ public class Song {
     }
 
     public int getNotesId(@NonNull Context context) {
-        return context.getResources().getIdentifier(notesId, "drawable", context.getPackageName());
+        return context.getResources().getIdentifier(notesId, "raw", context.getPackageName());
     }
 
     public void setNotesId(@NonNull Context context, int notesId) {
@@ -99,7 +96,6 @@ public class Song {
     public void setGeneralSongId(@NonNull Context context, int generalSongId) {
         this.generalSongId = context.getResources().getResourceEntryName(generalSongId);
     }
-
 
     public String getText() {
         return text;

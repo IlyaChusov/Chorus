@@ -15,7 +15,6 @@ import java.util.List;
 public class SongRepository {
     private static final String DATABASE_NAME = "chorus_db";
     private static SongDatabase database;
-
     private static SongRepository repository;
 
     private SongRepository(Context context) {

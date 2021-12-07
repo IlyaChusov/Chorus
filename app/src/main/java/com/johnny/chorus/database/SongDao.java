@@ -11,9 +11,9 @@ import java.util.List;
 
 @Dao
 public interface SongDao {
-    @Query("SELECT * FROM song WHERE type=(:type)")
+    @Query("SELECT * FROM Song WHERE type = :type")
     LiveData<List<Song>> getSongs(SongType type);
 
-    @Query("SELECT * FROM song WHERE id=(:id)")
+    @Query("SELECT * FROM Song WHERE id = :id")
     LiveData<Song> getSong(int id);
 }

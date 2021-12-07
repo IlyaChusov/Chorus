@@ -5,7 +5,6 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -147,9 +146,8 @@ public class SongPlayer extends MediaPlayer {
             boolean interrupted = false;
             while (!interrupted)
                 try {
-                    new Handler(mSongViewModel.getContext().getMainLooper()).post(() -> {
-                        setBarProgress(getCurrentPosition());
-                    });
+                    new Handler(mSongViewModel.getContext().getMainLooper()).post(() ->
+                            setBarProgress(getCurrentPosition()));
 
                     Thread.sleep(1000);
                 }

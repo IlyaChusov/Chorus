@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,16 +20,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.transition.platform.MaterialContainerTransform;
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback;
-import com.johnny.chorus.model.Lab;
 import com.johnny.chorus.model.Song;
-import com.johnny.chorus.model.SongType;
-import com.johnny.chorus.model.SongsList;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -42,7 +37,6 @@ import java.util.Objects;
 public class SongActivity extends AppCompatActivity {
 
     private static final String SONG_ID = "songId";
-    private static final String SONGS_LIST_ID = "songsListId";
     private static final String SHARED_ELEMENT = "sharedElement";
     private static final String GENERAL_PLAYER_POS = "generalPlayerPosition";
     private static final String TONE_PLAYER_POS = "tonePlayerPosition";
@@ -70,10 +64,10 @@ public class SongActivity extends AppCompatActivity {
         getSupportActionBar().setElevation(5);
 
         songViewModel = new ViewModelProvider(this).get(SongViewModel.class);
+        songViewModel.setSong(getIntent().getIntExtra(SONG_ID, 0));
         songViewModel.songLiveData.observe(
                 this,
                 song -> workWithSong(savedInstanceState, song));
-        songViewModel.setSongId(getIntent().getIntExtra(SONG_ID, 0));
     }
 
     private void workWithSong(@Nullable Bundle savedInstanceState, @NonNull Song song) {
@@ -188,10 +182,9 @@ public class SongActivity extends AppCompatActivity {
     }
 
     @NotNull
-    public static Intent newIntent(Context context, int songId, int songListId) {
+    public static Intent newIntent(Context context, int songId) {
         Intent intent = new Intent(context, SongActivity.class);
         intent.putExtra(SONG_ID, songId);
-        intent.putExtra(SONGS_LIST_ID, songListId);
         return intent;
     }
 

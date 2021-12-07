@@ -9,48 +9,53 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.johnny.chorus.model.Lab;
 import com.johnny.chorus.model.Song;
-import com.johnny.chorus.model.SongsList;
+import com.johnny.chorus.model.SongType;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ListFragment extends Fragment {
 
-    private static final String SONGS_LIST_ID = "songsListId";
+    private static final String SONGS_TYPE = "songsType";
 
-    private int songsListId;
     private SongAdapter adapter;
 
     @NotNull
-    public static ListFragment create(int songsListId) {
+    public static ListFragment create(SongType songType) {
         ListFragment listFragment = new ListFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(SONGS_LIST_ID, songsListId);
+        bundle.putSerializable(SONGS_TYPE, songType);
         listFragment.setArguments(bundle);
         return listFragment;
+    }
+
+    private void setAdapter(List<Song> songsList, RecyclerView mRecyclerView) {
+        if (songsList != null) {
+            adapter = new SongAdapter(songsList);
+            mRecyclerView.setAdapter(adapter);
+        }
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_songs, container, false);
-        SongsList songsList = null;
+        SongRepository repository = SongRepository.get();
 
-        if (getArguments() != null) {
-            songsListId = getArguments().getInt(SONGS_LIST_ID);
-            songsList = Lab.getLab().getSongsList(songsListId);
-        }
         RecyclerView mRecyclerView = v.findViewById(R.id.song_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        if (songsList != null) {
-            adapter = new SongAdapter(songsList);
-            mRecyclerView.setAdapter(adapter);
+        adapter = new SongAdapter(Collections.emptyList());
+
+        if (getArguments() != null) {
+            LiveData<List<Song>> songsList = repository.getSongs((SongType) getArguments().getSerializable(SONGS_TYPE));
+            songsList.observe(getViewLifecycleOwner(), songs -> setAdapter(songs, mRecyclerView));
         }
         return v;
     }
@@ -84,7 +89,7 @@ public class ListFragment extends Fragment {
                     v,
                     SongActivity.getSharedElement());
             startActivity(
-                    SongActivity.newIntent(getContext(), songId, songsListId),
+                    SongActivity.newIntent(getContext(), songId),
                     activityOptions.toBundle());
         }
     }
@@ -92,8 +97,8 @@ public class ListFragment extends Fragment {
     private class SongAdapter extends RecyclerView.Adapter<SongHolder> {
         private final List<Song> songsList;
 
-        public SongAdapter(@NonNull @NotNull SongsList songsList) {
-            this.songsList = songsList.getSongs();
+        public SongAdapter(@NonNull @NotNull List<Song> songsList) {
+            this.songsList = songsList;
         }
 
         @NonNull
