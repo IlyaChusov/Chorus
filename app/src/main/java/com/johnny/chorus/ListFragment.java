@@ -79,7 +79,7 @@ public class ListFragment extends Fragment {
 
         public void bind(@NonNull @NotNull Song song) {
             mNumberView.setText(getString(R.string.glas_s, String.valueOf(song.getNumber())));
-            songId = song.getNumber();
+            songId = song.getId();
         }
 
         @Override

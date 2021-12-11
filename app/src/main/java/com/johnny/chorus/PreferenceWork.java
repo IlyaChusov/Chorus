@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 
 public class PreferenceWork {
 
+    private static final String PREF_SAVED_APP_VERSION = "savedAppVersion";
     private static final String PREF_TONE_ID = "defaultToneId";
     private static final String PREF_REP_MODE = "defaultRepeatingMode";
     private static SharedPreferences preferences;
@@ -18,6 +19,17 @@ public class PreferenceWork {
         preferences =  PreferenceManager.getDefaultSharedPreferences(context);
         defaultToneId = preferences.getInt(PREF_TONE_ID,  0); // Бас по умолчанию
         defaultRepeatingMode = preferences.getBoolean(PREF_REP_MODE, false); // Настройка повтора песни по умолчанию
+    }
+
+    public static String getSavedAppVersion() {
+        if (preferences != null)
+            return preferences.getString(PREF_SAVED_APP_VERSION, "");
+        return "";
+    }
+
+    public static void setSavedAppVersion(String savedAppVersion) {
+        if (preferences != null)
+            preferences.edit().putString(PREF_SAVED_APP_VERSION, savedAppVersion).apply();
     }
 
     public static int getDefaultToneId() {
