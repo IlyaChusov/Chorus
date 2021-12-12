@@ -1,7 +1,6 @@
 package com.johnny.chorus;
 
 import android.app.Application;
-import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
 import java.io.FileOutputStream;
@@ -19,24 +18,11 @@ public class ChorusApplication extends Application {
         PreferenceWork.setContext(this);
         try {
             if (!dbExists())
-                copyDB(DB_NAME);
+                copyDB();
             else {
                 if (!BuildConfig.VERSION_NAME.equals(PreferenceWork.getSavedAppVersion())) {
-                    String newDbName = DB_NAME + "_new";
-                    copyDB(newDbName);
-
-                    SQLiteDatabase assetDatabase = SQLiteDatabase.openDatabase(this.getDatabasePath(newDbName).getPath(), null, SQLiteDatabase.OPEN_READONLY);
-                    SQLiteDatabase curDatabase = SQLiteDatabase.openDatabase(this.getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
-                    int assetDatabaseVer = assetDatabase.getVersion();
-                    int curDatabaseVer = curDatabase.getVersion();
-                    assetDatabase.close();
-                    curDatabase.close();
-                    this.deleteDatabase(newDbName);
-
-                    if (assetDatabaseVer != curDatabaseVer) {
-                        this.deleteDatabase(DB_NAME);
-                        copyDB(DB_NAME);
-                    }
+                    this.deleteDatabase(DB_NAME);
+                    copyDB();
                 }
             }
             PreferenceWork.setSavedAppVersion(BuildConfig.VERSION_NAME);
@@ -51,9 +37,9 @@ public class ChorusApplication extends Application {
         return this.getDatabasePath(DB_NAME).exists();
     }
 
-    private void copyDB(String dbName) throws IOException {
+    private void copyDB() throws IOException {
         InputStream inputStream = this.getAssets().open("databases/" + DB_NAME);
-        OutputStream outputStream = new FileOutputStream(this.getDatabasePath(dbName).getPath());
+        OutputStream outputStream = new FileOutputStream(this.getDatabasePath(DB_NAME).getPath());
 
         byte[] buffer = new byte[1024];
         int length;
