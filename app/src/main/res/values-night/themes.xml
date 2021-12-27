@@ -10,6 +10,7 @@
     <style name="SongActivityTheme" parent="BaseSongActivityTheme">
         <item name="colorPrimary">@color/green_700</item>
         <item name="colorPrimaryDark">?attr/colorPrimary</item>
+        <item name="colorSecondary">?attr/colorPrimary</item>
         <item name="colorControlActivated">?attr/colorAccent</item>
     </style>
 </resources>

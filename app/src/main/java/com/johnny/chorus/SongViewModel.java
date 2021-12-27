@@ -12,21 +12,13 @@ import androidx.lifecycle.LiveData;
 
 import com.johnny.chorus.model.Song;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SongViewModel extends AndroidViewModel {
 
-    private List<SongPlayer> playerList;
     private AnimatedVectorDrawable pauseToPlayDrawable;
-    private final List<AnimatedVectorDrawable> animPlayToPauseDrawablesList = new ArrayList<>();
-    private boolean hasData = false;
+    private AnimatedVectorDrawable animPlayToPauseDrawable;
     public LiveData<Song> songLiveData;
+    private SongPlayer player;
     private final SongRepository songRepository = SongRepository.get();
-
-    public boolean hasData() {
-        return hasData;
-    }
 
     public SongViewModel(@NonNull Application application) {
         super(application);
@@ -41,43 +33,31 @@ public class SongViewModel extends AndroidViewModel {
             songLiveData = songRepository.getSong(songId);
     }
 
-    public void setPlayerList(List<SongPlayer> playerList) {
-        this.playerList = playerList;
-        hasData = true;
-    }
-
-    public List<SongPlayer> getPlayerList() {
-        return playerList;
-    }
-
-    public void pauseAllPlayers() {
-        for (SongPlayer player: playerList)
-            if (player.isPlaying())
-                player.pausePlayer();
-    }
-
-    @Override
-    protected void onCleared() {
-        for (SongPlayer player: playerList)
-            player.destroyPlayer();
-        SongPlayer.clearIdCount();
-        super.onCleared();
+    public void setPlayer(SongPlayer player) {
+        this.player = player;
     }
 
     public void setDrawables(AnimatedVectorDrawable pauseToPlayDrawable, Context context, @DrawableRes int imageId) {
         this.pauseToPlayDrawable = pauseToPlayDrawable;
+        animPlayToPauseDrawable = (AnimatedVectorDrawable) AppCompatResources.getDrawable(context, imageId);
 
-        for (int i = 0; i< playerList.size(); i++) {
-            animPlayToPauseDrawablesList.add(
-                    (AnimatedVectorDrawable) AppCompatResources.getDrawable(context, imageId));
-        }
+    }
+
+    public SongPlayer getPlayer() {
+        return player;
     }
 
     public AnimatedVectorDrawable getPauseToPlayDrawable() {
         return pauseToPlayDrawable;
     }
 
-    public AnimatedVectorDrawable getPlayToPauseDrawable(int playerId) {
-        return animPlayToPauseDrawablesList.get(playerId);
+    public AnimatedVectorDrawable getPlayToPauseDrawable() {
+        return animPlayToPauseDrawable;
+    }
+
+    @Override
+    protected void onCleared() {
+        player.destroyPlayer();
+        super.onCleared();
     }
 }

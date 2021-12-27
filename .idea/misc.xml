@@ -18,9 +18,11 @@
         <entry key="..\:/Android_Projects/Chorus/app/src/main/res/drawable/splash_screen.xml" value="0.3828125" />
         <entry key="..\:/Android_Projects/Chorus/app/src/main/res/layout/activity_image.xml" value="0.36367753623188404" />
         <entry key="..\:/Android_Projects/Chorus/app/src/main/res/layout/activity_main.xml" value="0.2210144927536232" />
-        <entry key="..\:/Android_Projects/Chorus/app/src/main/res/layout/activity_song.xml" value="0.5682001614205004" />
+        <entry key="..\:/Android_Projects/Chorus/app/src/main/res/layout/activity_sing.xml" value="0.33" />
+        <entry key="..\:/Android_Projects/Chorus/app/src/main/res/layout/activity_song.xml" value="0.25" />
         <entry key="..\:/Android_Projects/Chorus/app/src/main/res/layout/fragment_image.xml" value="0.36666666666666664" />
         <entry key="..\:/Android_Projects/Chorus/app/src/main/res/layout/list_item.xml" value="0.21965579710144928" />
+        <entry key="..\:/Android_Projects/Chorus/app/src/main/res/layout/srt_item.xml" value="0.3138586956521739" />
       </map>
     </option>
   </component>

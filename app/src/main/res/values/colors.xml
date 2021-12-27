@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="ametist_200">#bf9fdf</color>
     <color name="ametist_500">#9966CC</color>
     <color name="ametist_700">#5B1B9D</color>
     <color name="green_700">#2C4B26</color>

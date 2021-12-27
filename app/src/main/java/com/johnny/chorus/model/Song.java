@@ -17,6 +17,31 @@ public class Song {
     @PrimaryKey private final int id;
     private int number;
     private String text;
+    private String generalSongId;
+    private String notesId;
+    private String srtId;
+    private SongType type;
+    private List<String> toneSongsArray = new ArrayList<>();
+
+    public Song(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getSrtId() {
+        return srtId;
+    }
+
+    public void setSrtId(String srtId) {
+        this.srtId = srtId;
+    }
+
+    public int getSrtId(@NonNull Context context) {
+        return context.getResources().getIdentifier(srtId, "raw", context.getPackageName());
+    }
 
     public String getGeneralSongId() {
         return generalSongId;
@@ -57,19 +82,6 @@ public class Song {
     public void addToneSongsId(@NonNull int... ids) {
         for (int id: ids)
             toneSongsArray.add(id + "");
-    }
-
-    private String generalSongId;
-    private String notesId;
-    private SongType type;
-    private List<String> toneSongsArray = new ArrayList<>();
-
-    public Song(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public int getToneSongsId(@NonNull Context context, int arrayId) {

@@ -18,24 +18,32 @@ public class SongPlayer extends MediaPlayer {
     private Thread updatingThread;
     private ImageButton mPlayButton;
     private SeekBar mSongBar;
-    private int songId;
     private final SongViewModel mSongViewModel;
-    private final int playerId;
-    private static int playerIdGen = 0;
 
     public SongPlayer(@NotNull SongViewModel songViewModel, int songId) throws IOException {
+        this(songViewModel, songId, "", null, null);
+    }
+    public SongPlayer(@NotNull SongViewModel songViewModel, int songId, OnCompletionListener onCompletionListener) throws IOException {
+        this(songViewModel, songId, "", null, onCompletionListener);
+    }
+    public SongPlayer(@NotNull SongViewModel songViewModel, int songId, String srtName, OnTimedTextListener listener, OnCompletionListener onCompletionListener) throws IOException {
         mSongViewModel = songViewModel;
-        this.songId = songId;
 
         setDataSource(mSongViewModel.getContext(), Uri.parse("android.resource://" + mSongViewModel.getContext().getPackageName() + "/" + songId));
+        if (listener != null) {
+            addTimedTextSource(mSongViewModel.getContext().getFileStreamPath(srtName + ".srt").getAbsolutePath(), MediaPlayer.MEDIA_MIMETYPE_TEXT_SUBRIP);
+            setOnTimedTextListener(listener);
+            selectTrack(0);
+        }
         prepare();
 
         setLooping(PreferenceWork.getDefaultRepeatingMode());
         seekTo(0);
         setVolume(1f, 1f);
-        setOnCompletionListener(mp -> pausePlayer());
-        playerId = playerIdGen;
-        playerIdGen++;
+        if (onCompletionListener != null)
+            setOnCompletionListener(onCompletionListener);
+        else
+            setOnCompletionListener(mp -> pausePlayer());
 
         updatingThread = createUpdatingThread();
     }
@@ -49,7 +57,6 @@ public class SongPlayer extends MediaPlayer {
             if (isPlaying())
                 pausePlayer();
             else {
-                mSongViewModel.pauseAllPlayers();
                 updatingThread.start();
                 start();
                 animatePlayButton(false);
@@ -84,22 +91,6 @@ public class SongPlayer extends MediaPlayer {
         });
     }
 
-    public void setNewSong(int songId) throws IOException {
-        if (this.songId == songId)
-            return;
-
-        if (isPlaying())
-            pausePlayer();
-        stop();
-        reset();
-
-        this.songId = songId;
-        setDataSource(mSongViewModel.getContext(), Uri.parse("android.resource://" + mSongViewModel.getContext().getPackageName() + "/" + songId));
-        prepare();
-        mSongBar.setMax(getDuration());
-        setBarProgress(0);
-    }
-
     public void pausePlayer() {
         pause();
         animatePlayButton(true);
@@ -116,7 +107,7 @@ public class SongPlayer extends MediaPlayer {
 
     private void animatePlayButton(boolean pausing) {
         AnimatedVectorDrawable drawable =
-                pausing ? mSongViewModel.getPlayToPauseDrawable(playerId) : mSongViewModel.getPauseToPlayDrawable();
+                pausing ? mSongViewModel.getPlayToPauseDrawable() : mSongViewModel.getPauseToPlayDrawable();
 
         if (drawable != null) {
             mPlayButton.setImageDrawable(drawable);
@@ -134,10 +125,6 @@ public class SongPlayer extends MediaPlayer {
     public void seekToWithBar(int position) {
         seekTo(position);
         setBarProgress(position);
-    }
-
-    public static void clearIdCount() {
-        playerIdGen = 0;
     }
 
     @NotNull

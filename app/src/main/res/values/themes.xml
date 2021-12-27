@@ -10,12 +10,19 @@
     <style name="SongActivityTheme" parent="BaseSongActivityTheme">
         <item name="colorPrimary">@color/pink_200</item>
         <item name="colorPrimaryDark">@color/pink_500</item>
+        <item name="colorSecondary">@color/ametist_200</item>
         <item name="colorControlActivated">@color/brown</item>
     </style>
 
+    <style name="SingActivityTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@android:color/transparent</item>
+        <item name="background">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+</style>
 
 
-    <!-- Splash screen theme -->
+
+<!-- Splash screen theme -->
     <style name="Theme.Chorus.Launcher" parent="Theme.Chorus">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
